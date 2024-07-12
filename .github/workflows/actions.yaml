@@ -1,15 +1,24 @@
 name: ci-sonarcloud-node
+
 on:
   pull_request:
     branches:
       - develop
+
 jobs:
-  ruin-ci:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v2
-    - name: actions/setup-node@v2
-      with:
-        node-version: '21.7.3'
-    - run: npm install
-    - run: npm run test -- --coverage
+  sonarcloud-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Ajuste para a versão de Node.js que você está usando
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests with coverage
+        run: npm run test -- --coverage
