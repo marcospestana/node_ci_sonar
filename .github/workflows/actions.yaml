@@ -1,0 +1,23 @@
+name: ci-sonarcloud-node
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  ruin-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: '21.7.3'
+      - run: npm install
+      - run: npm run test -- --coverage
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
