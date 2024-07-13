@@ -1,8 +1,10 @@
 name: ci-sonarcloud-node
+
 on:
   pull_request:
     branches:
       - develop
+
 jobs:
   ruin-ci:
   runs-on: ubuntu-latest
